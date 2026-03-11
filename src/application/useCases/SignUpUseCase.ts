@@ -8,6 +8,8 @@ interface IInput {
     password: string
 }
 
+
+
 type IOutput = void
 
 export class SignUpUseCase {
