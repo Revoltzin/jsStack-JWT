@@ -14,7 +14,7 @@ export class SignUpController implements IController {
         try {
             const { email, name, password } = schema.parse(body)
 
-            const signUpUseCase = new SignUpUseCase()
+            const signUpUseCase = new SignUpUseCase(10)
             await signUpUseCase.execute({ email, name, password})
 
             return {
