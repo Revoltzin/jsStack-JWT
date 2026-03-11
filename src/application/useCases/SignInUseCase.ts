@@ -14,7 +14,7 @@ interface IOutput {
     accessToken: string
 }
 
-export class SignUpUseCase {
+export class SignInUseCase {
     async execute({ email, password }: IInput): Promise<IOutput> {
         const prismaClient = new PrismaClient()
         const account = await prismaClient.account.findUnique({
