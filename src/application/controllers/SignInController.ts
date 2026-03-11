@@ -37,7 +37,7 @@ export class SignInController implements IController {
                     statusCode: 401, // unauthorized error
                     body: {
                         error: 'Invalid credentials',
-                    }
+                    },
                 }
             }
 
