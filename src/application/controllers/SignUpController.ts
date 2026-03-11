@@ -1,11 +1,11 @@
-import { email, z, ZodError } from 'zod'
+import { z, ZodError } from 'zod'
 
 import type { IController, IRequest, IResponse } from "../interfaces/IController.js";
-import { SignUpUseCase } from '../useCases/SignInUseCase.js';
+import { SignUpUseCase } from '../useCases/SignUpUseCase.js';
 
 const schema = z.object({
     name: z.string().min(2),
-    email: z.email().min(1),
+    email: z.email(),
     password: z.string().min(8),
 })
 
@@ -18,8 +18,8 @@ export class SignUpController implements IController {
             await signUpUseCase.execute({ email, name, password})
 
             return {
-                statusCode: 204,
-                body: null,
+                statusCode: 201,
+                body: { message: 'Usuário criado com sucesso' },
             }
         } catch (error) {
             if (error instanceof ZodError) {
