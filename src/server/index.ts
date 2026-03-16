@@ -1,6 +1,8 @@
 import express from 'express'
 import { SignUpController } from '../application/controllers/SignUpController.js'
 import { SignUpUseCase } from '../application/useCases/SignUpUseCase.js'
+import { SignInController } from '../application/controllers/SignInController.js'
+import { SignInUseCase } from '../application/useCases/SignInUseCase.js'
 
 const app = express()
 app.use(express.json())
@@ -17,10 +19,16 @@ app.post('/sign-up', async (request, response) => {
     response.status(statusCode).json(body)
 })
 
-app.post('/sign-in', (request, response) => {
-    response.status(200).json({
-        message: 'SignIn'
+app.post('/sign-in', async (request, response) => {
+
+    const signInUseCase = new SignInUseCase()
+    const signInController = new SignInController(signInUseCase)
+
+    const { statusCode, body } = await signInController.handle({
+        body: request.body
     })
+
+    response.status(statusCode).json(body)
 })
 
 app.listen(3001, () => {
