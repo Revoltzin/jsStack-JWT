@@ -5,13 +5,15 @@ import express from 'express'
 // import { SignInUseCase } from '../application/useCases/SignInUseCase.js'
 import { routeAdapter } from './adapters/routeAdapter.js'
 import { makeSignUpController } from '../factories/makeSignUpController.js'
+import { makeListLeadsController } from '../factories/makeListLeadsController.js'
 
 const app = express()
 app.use(express.json())
 
 app.post("/sign-up", routeAdapter(makeSignUpController()))
-
 app.post("/sign-in", routeAdapter(makeSignUpController()))
+
+app.get('/leads', routeAdapter(makeListLeadsController()))
 
 app.listen(3001, () => {
     console.log('Server Running')
