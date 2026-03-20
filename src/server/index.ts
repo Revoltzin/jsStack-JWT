@@ -6,6 +6,7 @@ import express from 'express'
 import { routeAdapter } from './adapters/routeAdapter.js'
 import { makeSignUpController } from '../factories/makeSignUpController.js'
 import { makeListLeadsController } from '../factories/makeListLeadsController.js'
+import { MiddlewareAdapter } from './adapters/middlewareAdapter.js'
 
 const app = express()
 app.use(express.json())
@@ -13,7 +14,10 @@ app.use(express.json())
 app.post("/sign-up", routeAdapter(makeSignUpController()))
 app.post("/sign-in", routeAdapter(makeSignUpController()))
 
-app.get('/leads', routeAdapter(makeListLeadsController()))
+app.get('/leads',
+    MiddlewareAdapter(makeAuthenticationMiddleware()),
+    routeAdapter(makeListLeadsController())
+)
 
 app.listen(3001, () => {
     console.log('Server Running')
